@@ -1,7 +1,7 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { useSearchParams } from "next/navigation";
+import { useState } from "react";
 import Link from "next/link";
 
 import { options, Movies } from "../lib/helper";
@@ -9,8 +9,7 @@ import Card from "../components/card";
 import PageButtons from "../components/pagebuttons";
 
 export default function TopRatedMovies() {
-  const searchParams = useSearchParams();
-  const page = Number(searchParams.get("page")) || 1;
+  const [page, setPage] = useState(1);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["movies", page],
@@ -24,7 +23,7 @@ export default function TopRatedMovies() {
   if (isLoading) {
     return (
       <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
-        {Array.from({ length: 12 }).map((_, index) => (
+        {Array.from({ length: 20 }).map((_, index) => (
           <div
             key={index}
             className="bg-gray-800 animate-pulse h-64 rounded-md"
@@ -54,7 +53,7 @@ export default function TopRatedMovies() {
           </Link>
         ))}
       </section>
-      <PageButtons page={page} />
+      <PageButtons page={page} setPage={setPage} />
     </>
   );
 }

@@ -19,8 +19,20 @@ export default function TvshowDetails() {
       ),
   });
 
-  if (isLoading) return "..loading..";
-  if (error instanceof Error) return error.message;
+  if (isLoading) {
+    return (
+      <div className="">
+        <p>Loagin genres</p>
+      </div>
+    );
+  }
+
+  if (error)
+    return (
+      <div className="text-red-500">
+        An error occurred: {(error as Error).message}
+      </div>
+    );
 
   return (
     <div className="text-white">
@@ -45,7 +57,7 @@ export default function TvshowDetails() {
           <div className="flex flex-col justify-end">
             <h1 className="text-4xl font-bold">{data.name}</h1>
             <p className="text-gray-300 mt-2">
-              {data.vote_average} • First aired: {data.first_air_date}
+              {data.vote_average} First aired: {data.first_air_date}
             </p>
             <p className="mt-4 max-w-2xl text-gray-200">{data.overview}</p>
           </div>
