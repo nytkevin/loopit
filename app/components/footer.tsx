@@ -58,7 +58,7 @@ export default function Footer() {
               </p>
               <p>
                 <a
-                  href="https://github.com/yourusername/loopit"
+                  href="https://github.com/nytkevin/loopit.git"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-white hover:text-white transition-colors duration-150 underline underline-offset-2"

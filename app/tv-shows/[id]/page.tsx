@@ -106,9 +106,14 @@ export default function TvshowDetails() {
           </a>
         </div>
       )}
-      <>
+      <a
+        href={`https://www.themoviedb.org/movie/${id}/cast`}
+        className="cursor-pointer"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
         <Cast type="tv" />
-      </>
+      </a>
     </div>
   );
 }

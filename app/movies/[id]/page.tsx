@@ -95,7 +95,14 @@ export default function MovieDetails() {
         </div>
       )}
 
-      <Cast type="movie" />
+      <a
+        href={`https://www.themoviedb.org/movie/${id}/cast`}
+        className="cursor-pointer"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <Cast type="movie" />
+      </a>
     </div>
   );
 }

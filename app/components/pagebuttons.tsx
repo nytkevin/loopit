@@ -7,7 +7,7 @@ type PaginationProps = {
 
 export default function PageButtons({ page, setPage }: PaginationProps) {
   return (
-    <div className="w-full flex justify-center gap-6 mt-10">
+    <div className="w-full flex justify-center gap-6 mt-10 pb-10">
       <button
         onClick={() => {
           if (page > 1) setPage(page - 1);

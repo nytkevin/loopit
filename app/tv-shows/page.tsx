@@ -22,7 +22,7 @@ export default function Tvshows() {
   if (isLoading) {
     return (
       <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
-        {Array.from({ length: 20 }).map((_, index) => (
+        {Array.from({ length: 22 }).map((_, index) => (
           <div
             key={index}
             className="bg-gray-800 animate-pulse h-64 rounded-md"
@@ -41,7 +41,7 @@ export default function Tvshows() {
 
   return (
     <>
-      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:px-40 md:gap-10 pb-10">
+      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
         {data.results.map((tvshow: Movies) => (
           <Link key={tvshow.id} href={`/tv-shows/${tvshow.id}`}>
             <Card

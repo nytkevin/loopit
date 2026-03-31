@@ -62,8 +62,10 @@ export default function Search() {
 
       {movies?.length > 0 && (
         <>
-          <h2 className="text-xl font-bold text-white mb-4">Movies</h2>
-          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:px-40 md:gap-10 pb-10">
+          <h2 className="text-xl font-extrabold text-white mb-4 text-center py-3">
+            Movies
+          </h2>
+          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
             {movies.map((movie: Movies) => (
               <Link key={movie.id} href={`/movies/${movie.id}`}>
                 <Card
@@ -79,8 +81,10 @@ export default function Search() {
 
       {tvshows?.length > 0 && (
         <>
-          <h2 className="text-xl font-bold text-white mb-4">TV Shows</h2>
-          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:px-40 md:gap-10 pb-10">
+          <h2 className="text-xl font-extrabold text-white mb-4 text-center pt-7 pb-3">
+            TV Shows
+          </h2>
+          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
             {tvshows.map((tvshow: Movies) => (
               <Link key={tvshow.id} href={`/tv-shows/${tvshow.id}`}>
                 <Card

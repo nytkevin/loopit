@@ -23,7 +23,7 @@ export default function TopRatedMovies() {
   if (isLoading) {
     return (
       <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
-        {Array.from({ length: 20 }).map((_, index) => (
+        {Array.from({ length: 22 }).map((_, index) => (
           <div
             key={index}
             className="bg-gray-800 animate-pulse h-64 rounded-md"
