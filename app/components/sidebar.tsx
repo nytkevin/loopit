@@ -1,6 +1,6 @@
 "use client";
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 import { TbMovie } from "react-icons/tb";
@@ -20,22 +20,37 @@ const navLinks = [
 
 export default function Sidebar() {
   const pathname = usePathname();
-
   const [open, setOpen] = useState(false);
+
+  const router = useRouter();
+  const handleClick = (href: string) => {
+    setOpen(false);
+    router.push(href);
+    setTimeout(() => {
+      router.push(href);
+    }, 500);
+  };
 
   return (
     <>
       <button
         onClick={() => setOpen(!open)}
-        className="md:hidden fixed top-4 left-4 text-2xl z-50"
+        className="md:hidden fixed top-4 left-4 text-2xl "
       >
         <TiThMenu />
       </button>
 
+      {open && (
+        <div
+          onClick={() => setOpen(false)}
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-10 md:hidden"
+        />
+      )}
+
       <aside
         className={`
     fixed top-0 left-0 h-screen w-52 border-r border-white/5
-    flex flex-col rounded-r-2xl p-3
+    flex flex-col rounded-r-2xl p-3 z-20
     transform transition-transform duration-300
     ${open ? "translate-x-0" : "-translate-x-full"}
     md:translate-x-0 md:static
@@ -52,7 +67,8 @@ export default function Sidebar() {
                 <li key={href}>
                   <Link
                     href={href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors duration-150 ${
+                    onClick={() => handleClick(href)}
+                    className={`flex not-visited:items-center gap-3 px-3 py-2 rounded-lg text-sm transition-colors duration-150 ${
                       active
                         ? "bg-zinc-800 text-white font-medium"
                         : "text-zinc-400 hover:text-white hover:bg-zinc-900"
