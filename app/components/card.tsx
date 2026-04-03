@@ -8,7 +8,7 @@ type cardProps = {
 export default function Card({ name, src, description }: cardProps) {
   //fix the shitty height
   return (
-    <div className="group relative flex flex-col overflow-hidden w-56 h-98 object-[50%_-20px] rounded-2xl bg-gray-950 border border-white/5 shadow-xl transition-all duration-300 hover:shadow-red-500/10 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1">
+    <div className="group relative flex flex-col overflow-hidden h-64 md:w-56 md:h-98 object-[50%_-20px] rounded-2xl bg-gray-950 border border-white/5 shadow-xl transition-all duration-300 hover:shadow-red-500/10 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1">
       <div className="relative w-full aspect-square bg-gray-900 overflow-hidden rounded-2xl">
         {
           <Image
@@ -25,6 +25,7 @@ export default function Card({ name, src, description }: cardProps) {
           {name}
         </h2>
         <p className="text-gray-400 text-sm leading-relaxed line-clamp-4">
+          {/* hidden */}
           {description}
         </p>
       </div>

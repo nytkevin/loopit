@@ -70,7 +70,10 @@ export default function Search() {
               <Link key={movie.id} href={`/movies/${movie.id}`}>
                 <Card
                   name={movie.title}
-                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  src={
+                    `https://image.tmdb.org/t/p/w500${movie.poster_path}` ||
+                    "/download.jpg"
+                  }
                   description={movie.overview}
                 />
               </Link>
