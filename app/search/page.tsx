@@ -33,11 +33,11 @@ export default function Search() {
   );
 
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col pb-96">
       <div className="flex items-center justify-center my-6">
         <input
           type="search"
-          className="text-white w-2xl hover:border-red-500 border border-gray-400 h-12 rounded-2xl placeholder:text-center"
+          className="text-white w-2xs md:w-2xl hover:border-red-500 border border-gray-400 h-10 md:h-12 rounded-xl md:rounded-2xl placeholder:text-center"
           placeholder="Type to begin searching"
           onChange={(e) => setQuery(e.target.value)}
         />

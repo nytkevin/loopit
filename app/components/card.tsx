@@ -23,7 +23,6 @@ export default function Card({ name, src, description }: cardProps) {
           {name}
         </h2>
         <p className="text-gray-400 text-sm leading-relaxed h-24 line-clamp-4 hidden md:block">
-          {/* hidden */}
           {description}
         </p>
       </div>
