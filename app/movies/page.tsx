@@ -42,7 +42,7 @@ export default function TopRatedMovies() {
 
   return (
     <>
-      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
+      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 items-stretch">
         {data?.results.map((movie: Movies) => (
           <Link key={movie.id} href={`/movies/${movie.id}`}>
             <Card
