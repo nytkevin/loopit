@@ -22,15 +22,15 @@ export default function Cast({ type }: CastProps) {
   return (
     <div>
       {castData?.cast?.length > 0 && (
-        <div className="px-6 pb-8">
+        <div className="px-4 md:px-6 pb-8">
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 mb-5">
             Cast
           </h2>
-          <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-hide">
+          <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-hide w-full">
             {castData.cast.map((member: Movies) => (
               <div
                 key={member.id}
-                className="flex flex-col items-center gap-2 min-w-18 group cursor-default"
+                className="flex flex-col items-center gap-2 min-w-18 shrink-0 group cursor-default"
               >
                 <div className="relative w-17 h-17 rounded-full overflow-hidden ring-1 ring-white/10 group-hover:ring-white/30 transition-all duration-300">
                   <Image
@@ -44,7 +44,7 @@ export default function Cast({ type }: CastProps) {
                     className="object-cover grayscale-20 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300"
                   />
                 </div>
-                <p className="text-center text-xs text-zinc-400 group-hover:text-white transition-colors duration-200 leading-tight max-w-18">
+                <p className="text-center text-xs text-zinc-400 group-hover:text-white transition-colors duration-200 leading-tight w-18">
                   {member.name}
                 </p>
               </div>
