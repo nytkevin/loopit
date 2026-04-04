@@ -39,7 +39,7 @@ export default function GenrePage() {
 
   return (
     <div>
-      <div className="flex flex-wrap justify-center gap-3 m-5 border border-white/5 text-sm">
+      <div className="flex flex-wrap justify-center gap-1 md:gap-4 p-5 border border-white/5 text-sm">
         {genresData?.genres.map((genre) => (
           <Button
             key={genre.id}

@@ -11,7 +11,7 @@ export default function Search() {
   const [debouncedQuery, setDebouncedQuery] = useState(query);
 
   useEffect(() => {
-    const handler = setTimeout(() => setDebouncedQuery(query), 500); // debounce 500ms
+    const handler = setTimeout(() => setDebouncedQuery(query), 500);
     return () => clearTimeout(handler);
   }, [query]);
 
@@ -71,8 +71,9 @@ export default function Search() {
                 <Card
                   name={movie.title}
                   src={
-                    `https://image.tmdb.org/t/p/w500${movie.poster_path}` ||
-                    "/download.jpg"
+                    movie.poster_path
+                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
+                      : "/download.jpg"
                   }
                   description={movie.overview}
                 />
