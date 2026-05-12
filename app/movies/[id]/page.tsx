@@ -1,5 +1,6 @@
 "use client";
 
+import Cast from "@/app/components/cast";
 // import Cast from "@/app/components/cast";
 import { Movies, options } from "@/app/lib/helper";
 import { useQuery } from "@tanstack/react-query";
@@ -95,12 +96,15 @@ export default function MovieDetails() {
             href={data.homepage}
             target="_blank"
             rel="noopener noreferrer"
-            className="text-blue-400 cursor-pointer text-sm md:text-base"
+            className="text-blue-400 underline text-sm md:text-base"
           >
-            {/* <Cast type="movie" /> */}
+            Visit officila page
           </a>
         </div>
       )}
+      <div className="">
+        <Cast type="movie" />
+      </div>
     </div>
   );
 }

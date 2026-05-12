@@ -26,7 +26,7 @@ export default function Cast({ type }: CastProps) {
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 mb-5">
             Cast
           </h2>
-          <div className="flex gap-5 overflow-x-auto pb-3 scrollbar-hide w-full">
+          <div className="flex gap-5 overflow-x-auto pb-3 w-400">
             {castData.cast.map((member: Movies) => (
               <div
                 key={member.id}

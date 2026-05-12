@@ -1,5 +1,6 @@
 "use client";
 
+import Cast from "@/app/components/cast";
 // import Cast from "@/app/components/cast";
 import { Movies, options } from "@/app/lib/helper";
 import { useQuery } from "@tanstack/react-query";
@@ -110,15 +111,9 @@ export default function TvshowDetails() {
           </a>
         </div>
       )}
-
-      {/* <a
-        href={`https://www.themoviedb.org/tv/${id}/cast`}
-        className="cursor-pointer"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        * <Cast type="tv" /> 
-      </a> */}
+      <div>
+        <Cast type="tv" />
+      </div>
     </div>
   );
 }
