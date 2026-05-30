@@ -20,13 +20,13 @@ export default function Cast({ type }: CastProps) {
       ),
   });
   return (
-    <div>
+    <div className="min-w-0 w-full">
       {castData?.cast?.length > 0 && (
         <div className="px-4 md:px-6 pb-8">
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 mb-5">
             Cast
           </h2>
-          <div className="flex gap-5 overflow-x-auto pb-3 w-400">
+          <div className="flex gap-5 overflow-x-auto pb-3 w-full min-w-0">
             {castData.cast.map((member: Movies) => (
               <div
                 key={member.id}

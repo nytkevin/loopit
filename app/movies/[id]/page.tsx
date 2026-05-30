@@ -24,7 +24,7 @@ export default function MovieDetails() {
   if (error instanceof Error) return error.message;
 
   return (
-    <div className="text-white">
+    <div className="text-white w-full">
       <div
         className="relative h-[60vh] bg-cover bg-center flex items-end"
         style={{
@@ -102,9 +102,8 @@ export default function MovieDetails() {
           </a>
         </div>
       )}
-      <div className="">
-        <Cast type="movie" />
-      </div>
+
+      <Cast type="movie" />
     </div>
   );
 }

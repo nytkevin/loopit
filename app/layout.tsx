@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
+// @ts-expect-error: global CSS import is handled by Next.js
 import "./globals.css";
 import Providers from "./provider/page";
 import Footer from "./components/footer";
@@ -24,7 +25,7 @@ export default function RootLayout({
           <div className="">
             <Sidebar />
           </div>
-          <main className="flex-1 mt-5">
+          <main className="flex-1 mt-5 overflow-x-hidden">
             <div>
               <Providers>{children}</Providers>
             </div>
