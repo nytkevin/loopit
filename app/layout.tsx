@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 // import { Geist, Geist_Mono } from "next/font/google";
-// @ts-expect-error: global CSS import is handled by Next.js
-import "./globals.css";
 import Providers from "./provider/page";
 import Footer from "./components/footer";
 import Sidebar from "./components/sidebar";
