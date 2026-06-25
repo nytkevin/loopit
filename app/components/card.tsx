@@ -8,8 +8,8 @@ type cardProps = {
 export default function Card({ name, src, description }: cardProps) {
   //fix the shitty height
   return (
-    <div className="group relative flex flex-col overflow-hidden  object-[50%_-20px] rounded-2xl bg-gray-950 border border-white/5 shadow-xl transition-all duration-300 hover:shadow-red-500/10 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1 py-2">
-      <div className="relative w-full aspect-square bg-gray-900 overflow-hidden rounded-2xl">
+    <div className="group relative flex flex-col overflow-hidden max-h-64 md:max-h-72  object-[50%_-20px] rounded-2xl bg-gray-950 border border-white/5 shadow-xl transition-all duration-300 hover:shadow-red-500/10 hover:shadow-2xl hover:border-white/10 hover:-translate-y-1 py-2">
+      <div className="relative w-full aspect-square bg-gray-900 overflow-hidden rounded-2xl shrink-0">
         <Image
           className="object-cover object-top transition-transform duration-500 group-hover:scale-105 flex-1"
           src={src || "/download.jpg"}
@@ -19,9 +19,9 @@ export default function Card({ name, src, description }: cardProps) {
       </div>
       <div className="absolute inset-0 bg-linear-to-t from-gray-950/80 via-transparent to-transparent" />
       <div className="flex flex-col gap-4">
-        <h2 className="font-bold text-red-400 text-lg tracking-wide uppercase leading-tight text-center mt-3">
-          {name}
-        </h2>
+        <h2 className="mt-3 text-center text-[10px] font-bold uppercase tracking-wide leading-tight text-red-400 sm:text-xs md:text-sm lg:text-lg">
+           {name}
+         </h2>
         <p className="text-gray-400 text-sm leading-relaxed h-24 line-clamp-4 hidden md:block">
           {description}
         </p>
