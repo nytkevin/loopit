@@ -44,7 +44,7 @@ export default function Search() {
       </div>
 
       {isLoading && (
-           <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
+           <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
           {Array.from({ length: 20 }).map((_, index) => (
             <div
               key={index}
@@ -60,12 +60,14 @@ export default function Search() {
         </p>
       )}
 
+      {movies?.length <= 0 && <p className="text-white text-center">No results found !</p>}
+
       {movies?.length > 0 && (
         <>
           <h2 className="text-xl font-extrabold text-white mb-4 text-center py-3">
             Movies
           </h2>
-           <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
+           <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
             {movies.map((movie: Movies) => (
               <Link key={movie.id} href={`/movies/${movie.id}`}>
                 <Card
@@ -88,7 +90,7 @@ export default function Search() {
           <h2 className="text-xl font-extrabold text-white mb-4 text-center pt-7 pb-3">
             TV Shows
           </h2>
-          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
+          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
             {tvshows.map((tvshow: Movies) => (
               <Link key={tvshow.id} href={`/tv-shows/${tvshow.id}`}>
                 <Card

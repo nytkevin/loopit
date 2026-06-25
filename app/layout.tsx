@@ -21,7 +21,7 @@ export default function RootLayout({
       <body className="bg-gray-950">
         <Header />
         <div className="flex">
-          <div className="">
+          <div>
             <Sidebar />
           </div>
           <main className="flex-1 mt-5 overflow-x-hidden">

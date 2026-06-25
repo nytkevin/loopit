@@ -54,7 +54,7 @@ export default function GenrePage() {
       </div>
 
       {moviesLoading ? (
-         <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
+         <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
           {Array.from({ length: 20 }).map((_, idx) => (
             <div
               key={idx}
@@ -65,7 +65,7 @@ export default function GenrePage() {
       ) : (
         moviesData?.results?.length > 0 && (
           <>
-            <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
+            <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
               {moviesData.results.map((movie: Movies) => (
                 <Link key={movie.id} href={`/movies/${movie.id}`}>
                   <Card

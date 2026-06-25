@@ -21,7 +21,7 @@ export default function Tvshows() {
 
   if (isLoading) {
     return (
-      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-7 lg:grid-cols-5 lg:gap-8">
+      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-7 lg:grid-cols-6 lg:gap-8">
         {Array.from({ length: 22 }).map((_, index) => (
           <div
             key={index}
@@ -41,7 +41,7 @@ export default function Tvshows() {
 
   return (
     <>
-       <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 items-stretch">
+       <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 items-stretch">
         {data.results.map((tvshow: Movies) => (
           <Link key={tvshow.id} href={`/tv-shows/${tvshow.id}`}>
             <Card
