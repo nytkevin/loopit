@@ -1,3 +1,7 @@
+if (!process.env.NEXT_PUBLIC_TMDB_API_Key) {
+  throw new Error("NEXT_PUBLIC_TMDB_API_Key is not defined in the environment variables.");
+}
+
 const options = {
   method: "GET",
   headers: {

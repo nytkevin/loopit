@@ -37,14 +37,14 @@ export default function Search() {
       <div className="flex items-center justify-center my-6">
         <input
           type="search"
-          className="text-white w-2xs md:w-2xl hover:border-red-500 border border-gray-400 h-10 md:h-12 rounded-xl md:rounded-2xl placeholder:text-center"
+          className="text-white w-2xs md:w-2xl hover:border-red-500 border border-gray-400 h-10 md:h-12 rounded-xl md:rounded-2xl placeholder:text-center px-5"
           placeholder="Type to begin searching"
           onChange={(e) => setQuery(e.target.value)}
         />
       </div>
 
       {isLoading && (
-        <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-10 pb-10">
+           <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
           {Array.from({ length: 20 }).map((_, index) => (
             <div
               key={index}
@@ -65,7 +65,7 @@ export default function Search() {
           <h2 className="text-xl font-extrabold text-white mb-4 text-center py-3">
             Movies
           </h2>
-          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
+           <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
             {movies.map((movie: Movies) => (
               <Link key={movie.id} href={`/movies/${movie.id}`}>
                 <Card
@@ -88,7 +88,7 @@ export default function Search() {
           <h2 className="text-xl font-extrabold text-white mb-4 text-center pt-7 pb-3">
             TV Shows
           </h2>
-          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8">
+          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-5 lg:gap-8 pb-10">
             {tvshows.map((tvshow: Movies) => (
               <Link key={tvshow.id} href={`/tv-shows/${tvshow.id}`}>
                 <Card
