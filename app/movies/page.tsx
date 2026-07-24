@@ -4,20 +4,17 @@ import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
 import Link from "next/link";
 
-import { options, Movies } from "../lib/helper";
+import { Movies } from "../lib/helper";
 import Card from "../components/card";
 import PageButtons from "../components/pagebuttons";
+import { getMovies } from "../lib/movies/getMovies";
 
 export default function TopRatedMovies() {
   const [page, setPage] = useState(1);
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["movies", page],
-    queryFn: () =>
-      fetch(
-        `https://api.themoviedb.org/3/movie/popular?page=${page}`,
-        options,
-      ).then((res) => res.json()),
+    queryFn: () => getMovies(page),
   });
 
   if (isLoading) {

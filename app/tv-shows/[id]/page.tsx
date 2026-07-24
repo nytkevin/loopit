@@ -1,8 +1,8 @@
 "use client";
 
 import Cast from "@/app/components/cast";
-// import Cast from "@/app/components/cast";
-import { Movies, options } from "@/app/lib/helper";
+import { Movies } from "@/app/lib/helper";
+import { getTVShowDetail } from "@/app/lib/tv-shows/getTv-showsDetails";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -14,10 +14,7 @@ export default function TvshowDetails() {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["tvshow", id],
-    queryFn: () =>
-      fetch(`https://api.themoviedb.org/3/tv/${id}`, options).then((res) =>
-        res.json(),
-      ),
+    queryFn: () => getTVShowDetail(id),
   });
 
   if (isLoading) {

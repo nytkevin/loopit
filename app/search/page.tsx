@@ -1,10 +1,11 @@
 "use client";
 
 import { useQuery } from "@tanstack/react-query";
-import { Movies, options } from "../lib/helper";
+import { Movies } from "../lib/helper";
 import { useEffect, useState } from "react";
 import Card from "../components/card";
 import Link from "next/link";
+import { getSearchMedia } from "../lib/search/getSearch";
 
 export default function Search() {
   const [query, setQuery] = useState("");
@@ -17,11 +18,7 @@ export default function Search() {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["search", debouncedQuery],
-    queryFn: () =>
-      fetch(
-        `https://api.themoviedb.org/3/search/multi?query=${debouncedQuery}`,
-        options,
-      ).then((res) => res.json()),
+    queryFn: () => getSearchMedia(debouncedQuery),
     enabled: debouncedQuery.length > 0,
   });
 
@@ -44,7 +41,7 @@ export default function Search() {
       </div>
 
       {isLoading && (
-           <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
+        <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
           {Array.from({ length: 20 }).map((_, index) => (
             <div
               key={index}
@@ -60,14 +57,16 @@ export default function Search() {
         </p>
       )}
 
-      {movies?.length <= 0 && <p className="text-white text-center">No results found !</p>}
+      {movies?.length <= 0 && (
+        <p className="text-white text-center">No results found !</p>
+      )}
 
       {movies?.length > 0 && (
         <>
           <h2 className="text-xl font-extrabold text-white mb-4 text-center py-3">
             Movies
           </h2>
-           <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
+          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
             {movies.map((movie: Movies) => (
               <Link key={movie.id} href={`/movies/${movie.id}`}>
                 <Card

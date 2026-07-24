@@ -8,6 +8,7 @@ import { options, Movies } from "../lib/helper";
 import Button from "../components/button";
 import Card from "../components/card";
 import PageButtons from "../components/pagebuttons";
+import { getGenres } from "../lib/genre/getGenres";
 
 type Genre = { id: number; name: string };
 type GenreResponse = { genres: Genre[] };
@@ -19,13 +20,14 @@ export default function GenrePage() {
   const { data: genresData, isLoading: genresLoading } =
     useQuery<GenreResponse>({
       queryKey: ["genres"],
-      queryFn: () =>
-        fetch("https://api.themoviedb.org/3/genre/movie/list", options).then(
-          (res) => res.json(),
-        ),
+      queryFn: () => getGenres(),
     });
 
-  const { data: moviesData, isLoading: moviesLoading } = useQuery({
+  const {
+    data: moviesData,
+    isLoading: moviesLoading,
+    error,
+  } = useQuery({
     queryKey: ["movies", selectedGenre, page],
     queryFn: () =>
       fetch(
@@ -36,6 +38,13 @@ export default function GenrePage() {
   });
 
   if (genresLoading) return <div>Loading genres...</div>;
+
+  if (error)
+    return (
+      <div className="text-red-500">
+        An error occurred: {(error as Error).message}
+      </div>
+    );
 
   return (
     <div>
@@ -54,7 +63,7 @@ export default function GenrePage() {
       </div>
 
       {moviesLoading ? (
-         <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
+        <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
           {Array.from({ length: 20 }).map((_, idx) => (
             <div
               key={idx}

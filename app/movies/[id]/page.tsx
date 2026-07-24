@@ -2,7 +2,8 @@
 
 import Cast from "@/app/components/cast";
 // import Cast from "@/app/components/cast";
-import { Movies, options } from "@/app/lib/helper";
+import { Movies } from "@/app/lib/helper";
+import { getMovieDetail } from "@/app/lib/movies/getMovieDetails";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -14,10 +15,7 @@ export default function MovieDetails() {
 
   const { isLoading, error, data } = useQuery({
     queryKey: ["movies", id],
-    queryFn: () =>
-      fetch(`https://api.themoviedb.org/3/movie/${id}`, options).then((res) =>
-        res.json(),
-      ),
+    queryFn: () => getMovieDetail(id),
   });
 
   if (isLoading) return "..loading..";

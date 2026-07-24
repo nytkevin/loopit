@@ -2,21 +2,18 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Movies, options } from "../lib/helper";
+import { Movies } from "../lib/helper";
 import Card from "../components/card";
 import Link from "next/link";
 import PageButtons from "../components/pagebuttons";
+import { getTvShows } from "../lib/tv-shows/getTv-shows";
 
 export default function Tvshows() {
   const [page, setPage] = useState(1);
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["tvshows", page],
-    queryFn: () =>
-      fetch(
-        `https://api.themoviedb.org/3/tv/popular?page=${page}`,
-        options,
-      ).then((res) => res.json()),
+    queryFn: () => getTvShows(page),
   });
 
   if (isLoading) {
@@ -41,7 +38,7 @@ export default function Tvshows() {
 
   return (
     <>
-       <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 items-stretch">
+      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 items-stretch">
         {data.results.map((tvshow: Movies) => (
           <Link key={tvshow.id} href={`/tv-shows/${tvshow.id}`}>
             <Card
