@@ -19,7 +19,7 @@ export default function TopRatedMovies() {
 
   if (isLoading) {
     return (
-      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-7 lg:grid-cols-6 lg:gap-8">
+      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-7 lg:grid-cols-6 lg:gap-6">
         {Array.from({ length: 22 }).map((_, index) => (
           <div
             key={index}
@@ -39,13 +39,12 @@ export default function TopRatedMovies() {
 
   return (
     <>
-      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 items-stretch">
+      <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-7 lg:gap-8 items-stretch">
         {data?.results.map((movie: Movies) => (
           <Link key={movie.id} href={`/movies/${movie.id}`}>
             <Card
               name={movie.title}
               src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              description={movie?.overview}
             />
           </Link>
         ))}

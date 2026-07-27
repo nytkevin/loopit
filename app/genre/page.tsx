@@ -8,7 +8,7 @@ import { options, Movies } from "../lib/helper";
 import Button from "../components/button";
 import Card from "../components/card";
 import PageButtons from "../components/pagebuttons";
-import { getGenres } from "../lib/genre/getGenres";
+import { getMovieGenres } from "../lib/movies/getMovieGenre";
 
 type Genre = { id: number; name: string };
 type GenreResponse = { genres: Genre[] };
@@ -20,7 +20,7 @@ export default function GenrePage() {
   const { data: genresData, isLoading: genresLoading } =
     useQuery<GenreResponse>({
       queryKey: ["genres"],
-      queryFn: () => getGenres(),
+      queryFn: () => getMovieGenres(),
     });
 
   const {
@@ -80,7 +80,6 @@ export default function GenrePage() {
                   <Card
                     name={movie.title}
                     src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-                    description={movie.overview}
                   />
                 </Link>
               ))}

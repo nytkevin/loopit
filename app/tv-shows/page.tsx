@@ -44,7 +44,6 @@ export default function Tvshows() {
             <Card
               name={tvshow.name}
               src={`https://image.tmdb.org/t/p/w500${tvshow.poster_path}`}
-              description={tvshow.overview}
             />
           </Link>
         ))}

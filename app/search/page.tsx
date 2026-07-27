@@ -76,7 +76,6 @@ export default function Search() {
                       ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
                       : "/download.jpg"
                   }
-                  description={movie.overview}
                 />
               </Link>
             ))}
@@ -95,7 +94,6 @@ export default function Search() {
                 <Card
                   name={tvshow.name}
                   src={`https://image.tmdb.org/t/p/w500${tvshow.poster_path}`}
-                  description={tvshow.overview}
                 />
               </Link>
             ))}

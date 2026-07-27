@@ -1,5 +1,7 @@
 if (!process.env.NEXT_PUBLIC_TMDB_API_Key) {
-  throw new Error("NEXT_PUBLIC_TMDB_API_Key is not defined in the environment variables.");
+  throw new Error(
+    "NEXT_PUBLIC_TMDB_API_Key is not defined in the environment variables.",
+  );
 }
 
 const options = {
@@ -11,6 +13,7 @@ const options = {
 };
 
 type Movies = {
+  backdrop_path: string | undefined;
   id?: number;
   title?: string;
   name?: string;

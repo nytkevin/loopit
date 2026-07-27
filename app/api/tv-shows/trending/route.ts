@@ -3,13 +3,13 @@ import { options } from "@/app/lib/helper";
 export async function GET() {
   try {
     const res = await fetch(
-      "https://api.themoviedb.org/3/genre/movie/list",
+      "https://api.themoviedb.org/3/trending/tv/day",
       options,
     );
 
     if (!res.ok) {
       return Response.json(
-        { error: "Failed to fetch genres" },
+        { error: "Failed to fetch top 10 movies today" },
         { status: res.status },
       );
     }
