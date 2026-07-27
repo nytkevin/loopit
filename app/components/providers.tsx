@@ -3,6 +3,7 @@ import Card from "./card";
 import { getMovies } from "../lib/discover/getDiscover";
 import { Movies } from "../lib/helper";
 import { useQuery } from "@tanstack/react-query";
+import { useRef } from "react";
 
 export default function ProviderRow({
   id,
@@ -18,10 +19,20 @@ export default function ProviderRow({
     queryFn: () => getMovies(id),
   });
 
+  const scrollRef = useRef<HTMLDivElement>(null);
+
   const movies: Movies[] = data?.results ?? [];
 
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
+  };
+
   return (
-    <section className="px-4 md:px-12 mb-10 md:mb-12">
+    <section className="px-4 md:px-12 mb-10 md:mb-12 relative">
       <span className="text-red-500 text-xs font-semibold tracking-widest">
         {eyebrow}
       </span>
@@ -39,22 +50,41 @@ export default function ProviderRow({
           ))}
         </div>
       ) : (
-        <div
-          className="flex gap-3 md:gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide"
-          style={{ WebkitOverflowScrolling: "touch" }}
-        >
-          {movies.slice(0, 10).map((movie) => (
-            <Link
-              key={movie.id}
-              href={`/movies/${movie.id}`}
-              className="shrink-0 snap-start"
-            >
-              <Card
-                name={movie.title}
-                src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              />
-            </Link>
-          ))}
+        <div className="relative">
+          <button
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
+            onClick={scrollLeft}
+            aria-label="Scroll left"
+          >
+            ◀
+          </button>
+
+          <div
+            className="flex gap-3 md:gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide"
+            style={{ WebkitOverflowScrolling: "touch" }}
+            ref={scrollRef}
+          >
+            {movies.slice(0, 20).map((movie) => (
+              <Link
+                key={movie.id}
+                href={`/movies/${movie.id}`}
+                className="shrink-0 snap-start"
+              >
+                <Card
+                  name={movie.title}
+                  src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                />
+              </Link>
+            ))}
+          </div>
+
+          <button
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
+            onClick={scrollRight}
+            aria-label="Scroll right"
+          >
+            ▶
+          </button>
         </div>
       )}
     </section>

@@ -1,3 +1,4 @@
+import { useRef } from "react";
 import { Movies } from "../lib/helper";
 import RankedCard from "./rankedCard";
 
@@ -15,6 +16,16 @@ export default function RankedRow({
   items: RankableItem[];
   hrefBase: string;
 }) {
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  const scrollLeft = () => {
+    scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
+  };
+
+  const scrollRight = () => {
+    scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
+  };
+
   return (
     <section className="px-6 md:px-12 mb-14">
       {category && (
@@ -36,16 +47,37 @@ export default function RankedRow({
           ))}
         </div>
       ) : (
-        <div className="flex gap-8 overflow-x-auto pb-4 snap-x snap-mandatory md:gap-10">
-          {items.slice(0, 10).map((item, i) => (
-            <RankedCard
-              key={item.id}
-              rank={i + 1}
-              name={item.title ?? item.name}
-              src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
-              href={`${hrefBase}/${item.id}`}
-            />
-          ))}
+        <div className="relative">
+          <button
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
+            onClick={scrollLeft}
+            aria-label="Scroll left"
+          >
+            ◀
+          </button>
+
+          <div
+            ref={scrollRef}
+            className="flex gap-8 overflow-x-auto pb-4 snap-x snap-mandatory md:gap-10 scrollbar-hide"
+          >
+            {items.slice(0, 10).map((item, i) => (
+              <RankedCard
+                key={item.id}
+                rank={i + 1}
+                name={item.title ?? item.name}
+                src={`https://image.tmdb.org/t/p/w500${item.poster_path}`}
+                href={`${hrefBase}/${item.id}`}
+              />
+            ))}
+          </div>
+
+          <button
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
+            onClick={scrollRight}
+            aria-label="Scroll right"
+          >
+            ▶
+          </button>
         </div>
       )}
     </section>
