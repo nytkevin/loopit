@@ -17,7 +17,7 @@ type Movies = {
   id?: number;
   title?: string;
   name?: string;
-  year?: number;
+  release_date?: string;
   rating?: number;
   ageRating?: string;
   duration?: string;
@@ -28,6 +28,7 @@ type Movies = {
   popularity?: string;
   profile_path?: string;
   media_type?: string;
+  vote_average?: number;
 };
 
 export { options };

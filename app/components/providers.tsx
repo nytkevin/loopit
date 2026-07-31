@@ -101,6 +101,12 @@ export default function ProviderRow({
                 <Card
                   name={movie.title}
                   src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+                  rating={
+                    movie.vote_average !== undefined
+                      ? Math.round(movie.vote_average * 10) / 10
+                      : undefined
+                  }
+                  year={movie.release_date?.split("-")[0]}
                 />
               </Link>
             ))}
