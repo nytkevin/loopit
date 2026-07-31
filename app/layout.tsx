@@ -19,18 +19,19 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-gray-950">
-        <Header />
-        <div className="flex">
-          <div>
-            <Sidebar />
-          </div>
-          <main className="flex-1 mt-5 overflow-x-hidden">
+        <Providers>
+          <Header />
+
+          <div className="flex">
             <div>
-              <Providers>{children}</Providers>
+              <Sidebar />
             </div>
-          </main>
-        </div>
-        <Footer />
+
+            <main className="flex-1 mt-5 overflow-x-hidden">{children}</main>
+          </div>
+
+          <Footer />
+        </Providers>
       </body>
     </html>
   );

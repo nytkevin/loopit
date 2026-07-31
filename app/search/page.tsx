@@ -2,43 +2,37 @@
 
 import { useQuery } from "@tanstack/react-query";
 import { Movies } from "../lib/helper";
-import { useEffect, useState } from "react";
 import Card from "../components/card";
 import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 import { getSearchMedia } from "../lib/search/getSearch";
 
 export default function Search() {
-  const [query, setQuery] = useState("");
-  const [debouncedQuery, setDebouncedQuery] = useState(query);
-
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedQuery(query), 500);
-    return () => clearTimeout(handler);
-  }, [query]);
+  const searchParams = useSearchParams();
+  const query = searchParams.get("q") || "";
 
   const { isLoading, error, data } = useQuery({
-    queryKey: ["search", debouncedQuery],
-    queryFn: () => getSearchMedia(debouncedQuery),
-    enabled: debouncedQuery.length > 0,
+    queryKey: ["search", query],
+    queryFn: () => getSearchMedia(query),
+    enabled: query.length > 0,
   });
 
-  const movies = data?.results?.filter(
-    (item: Movies) => item.media_type === "movie",
-  );
-  const tvshows = data?.results?.filter(
-    (item: Movies) => item.media_type === "tv",
+  const combinedResults = data?.results?.filter(
+    (item: Movies) => item.media_type === "movie" || item.media_type === "tv",
   );
 
   return (
     <div className="flex flex-col pb-96">
-      <div className="flex items-center justify-center my-6">
-        <input
-          type="search"
-          className="text-white w-2xs md:w-2xl hover:border-red-500 border border-gray-400 h-10 md:h-12 rounded-xl md:rounded-2xl placeholder:text-center px-5"
-          placeholder="Type to begin searching"
-          onChange={(e) => setQuery(e.target.value)}
-        />
-      </div>
+      <h1 className="text-white text-xl md:text-2xl font-semibold text-center my-6">
+        {query ? (
+          <>
+            Results for{" "}
+            <span className="text-red-500">&quot;{query}&quot;</span>
+          </>
+        ) : (
+          "Search for a movie or TV show"
+        )}
+      </h1>
 
       {isLoading && (
         <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
@@ -57,48 +51,46 @@ export default function Search() {
         </p>
       )}
 
-      {movies?.length <= 0 && (
+      {!isLoading && query && combinedResults?.length === 0 && (
         <p className="text-white text-center">No results found !</p>
       )}
 
-      {movies?.length > 0 && (
-        <>
-          <h2 className="text-xl font-extrabold text-white mb-4 text-center py-3">
-            Movies
-          </h2>
-          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
-            {movies.map((movie: Movies) => (
-              <Link key={movie.id} href={`/movies/${movie.id}`}>
-                <Card
-                  name={movie.title}
-                  src={
-                    movie.poster_path
-                      ? `https://image.tmdb.org/t/p/w500${movie.poster_path}`
-                      : "/download.jpg"
-                  }
-                />
-              </Link>
-            ))}
-          </div>
-        </>
-      )}
+      {combinedResults && combinedResults.length > 0 && (
+        <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
+          {combinedResults.map((item: Movies) => (
+            <Link
+              key={item.id}
+              href={
+                item.media_type === "tv"
+                  ? `/tv-shows/${item.id}`
+                  : `/movies/${item.id}`
+              }
+              className="relative"
+            >
+              <span
+                className="
+                  absolute top-2 left-2 z-10
+                  text-[10px] font-bold uppercase
+                  text-white
+                  bg-red-600/90
+                  px-2 py-0.5
+                  rounded-md
+                "
+              >
+                {item.media_type === "movie" ? "Movie" : "TV"}
+              </span>
 
-      {tvshows?.length > 0 && (
-        <>
-          <h2 className="text-xl font-extrabold text-white mb-4 text-center pt-7 pb-3">
-            TV Shows
-          </h2>
-          <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
-            {tvshows.map((tvshow: Movies) => (
-              <Link key={tvshow.id} href={`/tv-shows/${tvshow.id}`}>
-                <Card
-                  name={tvshow.name}
-                  src={`https://image.tmdb.org/t/p/w500${tvshow.poster_path}`}
-                />
-              </Link>
-            ))}
-          </div>
-        </>
+              <Card
+                name={item.title || item.name}
+                src={
+                  item.poster_path
+                    ? `https://image.tmdb.org/t/p/w500${item.poster_path}`
+                    : "/download.jpg"
+                }
+              />
+            </Link>
+          ))}
+        </div>
       )}
     </div>
   );

@@ -5,7 +5,6 @@ import { useState } from "react";
 
 import { TbMovie } from "react-icons/tb";
 import { FaTv } from "react-icons/fa6";
-import { FaSearch } from "react-icons/fa";
 import { BiCameraMovie } from "react-icons/bi";
 import { IoMdHome } from "react-icons/io";
 import { TiThMenu } from "react-icons/ti";
@@ -14,7 +13,6 @@ const navLinks = [
   { href: "/", label: "Home", icon: IoMdHome },
   { href: "/movies", label: "Movies", icon: TbMovie },
   { href: "/tv-shows", label: "TV Shows", icon: FaTv },
-  { href: "/search", label: "Search", icon: FaSearch },
   { href: "/genre", label: "Genre", icon: BiCameraMovie },
 ];
 
@@ -26,9 +24,6 @@ export default function Sidebar() {
   const handleClick = (href: string) => {
     setOpen(false);
     router.push(href);
-    setTimeout(() => {
-      router.push(href);
-    }, 500);
   };
 
   return (
