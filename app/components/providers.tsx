@@ -3,7 +3,8 @@ import Card from "./card";
 import { getMovies } from "../lib/discover/getDiscover";
 import { Movies } from "../lib/helper";
 import { useQuery } from "@tanstack/react-query";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 export default function ProviderRow({
   id,
@@ -20,8 +21,19 @@ export default function ProviderRow({
   });
 
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
-  const movies: Movies[] = data?.results ?? [];
+  const updateButtons = () => {
+    if (!scrollRef.current) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+  };
+
+  // const movies: Movies[] = data?.results ?? [];
 
   const scrollLeft = () => {
     scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
@@ -30,6 +42,21 @@ export default function ProviderRow({
   const scrollRight = () => {
     scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
   };
+
+  useEffect(() => {
+    updateButtons();
+
+    const container = scrollRef.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", updateButtons);
+    window.addEventListener("resize", updateButtons);
+
+    return () => {
+      container.removeEventListener("scroll", updateButtons);
+      window.removeEventListener("resize", updateButtons);
+    };
+  }, [data]);
 
   return (
     <section className="px-4 md:px-12 mb-10 md:mb-12 relative">
@@ -42,7 +69,7 @@ export default function ProviderRow({
 
       {isLoading ? (
         <div className="flex gap-3 md:gap-4 overflow-x-auto">
-          {Array.from({ length: 6 }).map((_, i) => (
+          {Array.from({ length: 10 }).map((_, i) => (
             <div
               key={i}
               className="aspect-2/3 w-28 sm:w-36 md:w-44 shrink-0 rounded-lg bg-neutral-900 animate-pulse"
@@ -52,11 +79,12 @@ export default function ProviderRow({
       ) : (
         <div className="relative">
           <button
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 disabled:cursor-not-allowed"
             onClick={scrollLeft}
             aria-label="Scroll left"
+            disabled={!canScrollLeft}
           >
-            ◀
+            <GrPrevious className="h-8 w-8" />
           </button>
 
           <div
@@ -64,7 +92,7 @@ export default function ProviderRow({
             style={{ WebkitOverflowScrolling: "touch" }}
             ref={scrollRef}
           >
-            {movies.slice(0, 20).map((movie) => (
+            {data?.results.slice(0, 20).map((movie: Movies) => (
               <Link
                 key={movie.id}
                 href={`/movies/${movie.id}`}
@@ -79,11 +107,12 @@ export default function ProviderRow({
           </div>
 
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 disabled:cursor-not-allowed"
             onClick={scrollRight}
             aria-label="Scroll right"
+            disabled={!canScrollRight}
           >
-            ▶
+            <GrNext className="h-8 w-8" />
           </button>
         </div>
       )}

@@ -1,6 +1,7 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Movies } from "../lib/helper";
 import RankedCard from "./rankedCard";
+import { GrNext, GrPrevious } from "react-icons/gr";
 
 type RankableItem = Pick<Movies, "id" | "title" | "name" | "poster_path">;
 export default function RankedRow({
@@ -17,6 +18,8 @@ export default function RankedRow({
   hrefBase: string;
 }) {
   const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
 
   const scrollLeft = () => {
     scrollRef.current?.scrollBy({ left: -300, behavior: "smooth" });
@@ -25,6 +28,30 @@ export default function RankedRow({
   const scrollRight = () => {
     scrollRef.current?.scrollBy({ left: 300, behavior: "smooth" });
   };
+
+  const updateButtons = () => {
+    if (!scrollRef.current) return;
+
+    const { scrollLeft, scrollWidth, clientWidth } = scrollRef.current;
+
+    setCanScrollLeft(scrollLeft > 0);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 1);
+  };
+
+  useEffect(() => {
+    updateButtons();
+
+    const container = scrollRef.current;
+    if (!container) return;
+
+    container.addEventListener("scroll", updateButtons);
+    window.addEventListener("resize", updateButtons);
+
+    return () => {
+      container.removeEventListener("scroll", updateButtons);
+      window.removeEventListener("resize", updateButtons);
+    };
+  }, [items]);
 
   return (
     <section className="px-6 md:px-12 mb-14">
@@ -49,11 +76,12 @@ export default function RankedRow({
       ) : (
         <div className="relative">
           <button
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-90 disabled:cursor-not-allowed"
             onClick={scrollLeft}
             aria-label="Scroll left"
+            disabled={!canScrollLeft}
           >
-            ◀
+            <GrPrevious className="h-8 w-8" />
           </button>
 
           <div
@@ -72,11 +100,12 @@ export default function RankedRow({
           </div>
 
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-90 disabled:cursor-not-allowed"
             onClick={scrollRight}
             aria-label="Scroll right"
+            disabled={!canScrollRight}
           >
-            ▶
+            <GrNext className="h-8 w-8" />
           </button>
         </div>
       )}

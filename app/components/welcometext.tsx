@@ -10,9 +10,19 @@ import RankedRow from "./rankedItems";
 
 const PROVIDERS = [
   { id: 8, label: "Netflix", eyebrow: "STREAMING ON NETFLIX" },
-  { id: 9, label: "Amazon Prime", eyebrow: "STREAMING ON PRIME VIDEO" },
+  // { id: 9, label: "Amazon Prime", eyebrow: "STREAMING ON PRIME VIDEO" },
   { id: 531, label: "Paramount+", eyebrow: "STREAMING ON PARAMOUNT+" },
   { id: 337, label: "Disney+", eyebrow: "STREAMING ON DISNEY+" },
+  // { id: 15, label: "Hulu", eyebrow: "STREAMING ON HULU" },
+  // { id: 1899, label: "Max", eyebrow: "STREAMING ON MAX" },
+  { id: 350, label: "Apple TV+", eyebrow: "STREAMING ON APPLE TV+" },
+  // { id: 386, label: "Peacock", eyebrow: "STREAMING ON PEACOCK" },
+  { id: 283, label: "Crunchyroll", eyebrow: "STREAMING ON CRUNCHYROLL" },
+  { id: 257, label: "FuboTV", eyebrow: "STREAMING ON FUBOTV" },
+  // { id: 34, label: "Mubi", eyebrow: "STREAMING ON MUBI" },
+  { id: 73, label: "Tubi TV", eyebrow: "STREAMING ON TUBI TV" },
+  { id: 212, label: "Hoopla", eyebrow: "STREAMING ON HOOPLA" },
+  { id: 11, label: "Kanopy", eyebrow: "STREAMING ON KANOPY" },
 ];
 
 export default function Welcome() {
