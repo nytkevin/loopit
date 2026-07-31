@@ -29,6 +29,7 @@ type Movies = {
   profile_path?: string;
   media_type?: string;
   vote_average?: number;
+  first_air_date?: string;
 };
 
 export { options };
