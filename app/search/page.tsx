@@ -35,7 +35,7 @@ export default function Search() {
       </h1>
 
       {isLoading && (
-        <section className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
+        <section className="mx-5 grid grid-cols-2 gap-5 items-stretch pb-10 md:grid-cols-6 md:gap-8 lg:grid-cols-7 lg:gap-8">
           {Array.from({ length: 20 }).map((_, index) => (
             <div
               key={index}
@@ -56,7 +56,7 @@ export default function Search() {
       )}
 
       {combinedResults && combinedResults.length > 0 && (
-        <div className="grid grid-cols-2 gap-5 mx-5 md:grid-cols-6 md:gap-8 lg:grid-cols-6 lg:gap-8 pb-10">
+        <section className="mx-5 grid grid-cols-2 gap-5 items-stretch pb-10 md:grid-cols-6 md:gap-8 lg:grid-cols-7 lg:gap-8">
           {combinedResults.map((item: Movies) => (
             <Link
               key={item.id}
@@ -90,7 +90,7 @@ export default function Search() {
               />
             </Link>
           ))}
-        </div>
+        </section>
       )}
     </div>
   );
