@@ -88,7 +88,7 @@ export default function ProviderRow({
           </button>
 
           <div
-            className="flex gap-3 md:gap-4 overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide"
+            className="flex gap-8 md:gap-10  overflow-x-auto pb-3 snap-x snap-mandatory scrollbar-hide"
             style={{ WebkitOverflowScrolling: "touch" }}
             ref={scrollRef}
           >
