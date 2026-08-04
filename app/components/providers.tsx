@@ -79,7 +79,7 @@ export default function ProviderRow({
       ) : (
         <div className="relative">
           <button
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 disabled:cursor-not-allowed"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 disabled:cursor-not-allowed cursor-pointer"
             onClick={scrollLeft}
             aria-label="Scroll left"
             disabled={!canScrollLeft}
@@ -113,7 +113,7 @@ export default function ProviderRow({
           </div>
 
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 disabled:cursor-not-allowed"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 disabled:cursor-not-allowed cursor-pointer"
             onClick={scrollRight}
             aria-label="Scroll right"
             disabled={!canScrollRight}

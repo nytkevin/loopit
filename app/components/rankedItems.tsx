@@ -76,7 +76,7 @@ export default function RankedRow({
       ) : (
         <div className="relative">
           <button
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-90 disabled:cursor-not-allowed"
+            className="absolute left-2 top-1/2 -translate-y-1/2 z-90 disabled:cursor-not-allowed cursor-pointer"
             onClick={scrollLeft}
             aria-label="Scroll left"
             disabled={!canScrollLeft}
@@ -86,7 +86,7 @@ export default function RankedRow({
 
           <div
             ref={scrollRef}
-            className="flex gap-8 overflow-x-auto pb-4 snap-x snap-mandatory md:gap-10 scrollbar-hide"
+            className="flex gap-8 pb-4 snap-x snap-mandatory md:gap-10 scrollbar-hide"
           >
             {items.slice(0, 10).map((item, i) => (
               <RankedCard
@@ -100,7 +100,7 @@ export default function RankedRow({
           </div>
 
           <button
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-90 disabled:cursor-not-allowed"
+            className="absolute right-2 top-1/2 -translate-y-1/2 z-90 disabled:cursor-not-allowed cursor-pointer"
             onClick={scrollRight}
             aria-label="Scroll right"
             disabled={!canScrollRight}
