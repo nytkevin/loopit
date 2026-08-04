@@ -32,5 +32,17 @@ type Movies = {
   first_air_date?: string;
 };
 
+type Video = {
+  key: string;
+  site: string;
+  type: string;
+  name: string;
+};
+
+export type VideosResponse = {
+  results: Video[];
+};
+
 export { options };
 export type { Movies };
+export type { Video };

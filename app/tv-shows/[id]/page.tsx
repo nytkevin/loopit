@@ -3,6 +3,8 @@
 import Cast from "@/app/components/cast";
 import { Movies } from "@/app/lib/helper";
 import { getTVShowDetail } from "@/app/lib/tv-shows/getTv-showsDetails";
+import { getTrailer } from "@/app/lib/video/getTrailer";
+import { getVideos } from "@/app/lib/video/getVideo";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
@@ -17,10 +19,21 @@ export default function TvshowDetails() {
     queryFn: () => getTVShowDetail(id),
   });
 
+  const {
+    isLoading: videoLoading,
+    error: videoError,
+    data: videos,
+  } = useQuery({
+    queryKey: ["videos", "tv", id],
+    queryFn: () => getVideos("tv", id),
+  });
+
+  const trailer = getTrailer(videos);
+
   if (isLoading) {
     return (
       <div className="">
-        <p>Loading genres</p>
+        <p>... Loading</p>
       </div>
     );
   }
@@ -29,6 +42,14 @@ export default function TvshowDetails() {
     return (
       <div className="text-red-500">
         An error occurred: {(error as Error).message}
+      </div>
+    );
+
+  if (videoLoading) return "..loading..";
+  if (videoError instanceof Error)
+    return (
+      <div className="text-red-500">
+        An error occurred: {(videoError as Error).message}
       </div>
     );
 
@@ -65,7 +86,6 @@ export default function TvshowDetails() {
           </div>
         </div>
       </div>
-
       <div className="p-4 md:p-6 grid grid-cols-2 md:grid-cols-3 gap-4 md:gap-6">
         <div>
           <h2 className="text-gray-400 text-sm md:text-base">Seasons</h2>
@@ -96,7 +116,6 @@ export default function TvshowDetails() {
           </p>
         </div>
       </div>
-
       {data.homepage && (
         <div className="px-4 md:px-6 pb-6">
           <a
@@ -108,9 +127,20 @@ export default function TvshowDetails() {
           </a>
         </div>
       )}
-      <div>
-        <Cast type="tv" />
-      </div>
+
+      {trailer && (
+        <div className="w-full max-w-3xl aspect-video mx-auto">
+          <iframe
+            src={`https://www.youtube.com/embed/${trailer.key}`}
+            title="YouTube trailer"
+            className="w-full h-full rounded-xl"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
+        </div>
+      )}
+
+      <Cast type="tv" />
     </div>
   );
 }

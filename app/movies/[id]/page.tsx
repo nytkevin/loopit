@@ -4,10 +4,11 @@ import Cast from "@/app/components/cast";
 // import Cast from "@/app/components/cast";
 import { Movies } from "@/app/lib/helper";
 import { getMovieDetail } from "@/app/lib/movies/getMovieDetails";
+import { getTrailer } from "@/app/lib/video/getTrailer";
+import { getVideos } from "@/app/lib/video/getVideo";
 import { useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { useParams } from "next/navigation";
-import React from "react";
 
 export default function MovieDetails() {
   const params = useParams();
@@ -18,8 +19,22 @@ export default function MovieDetails() {
     queryFn: () => getMovieDetail(id),
   });
 
+  const {
+    isLoading: videoLoading,
+    error: videoError,
+    data: videos,
+  } = useQuery({
+    queryKey: ["videos", "tv", id],
+    queryFn: () => getVideos("movie", id),
+  });
+
+  const trailer = getTrailer(videos);
+
   if (isLoading) return "..loading..";
   if (error instanceof Error) return error.message;
+
+  if (videoLoading) return "..loading..";
+  if (videoError instanceof Error) return videoError.message;
 
   return (
     <div className="text-white w-full">
@@ -98,6 +113,18 @@ export default function MovieDetails() {
           >
             Visit officila page
           </a>
+        </div>
+      )}
+
+      {trailer && (
+        <div className="w-full max-w-3xl aspect-video mx-auto">
+          <iframe
+            src={`https://www.youtube.com/embed/${trailer.key}`}
+            title="YouTube trailer"
+            className="w-full h-full rounded-xl"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            allowFullScreen
+          />
         </div>
       )}
 
