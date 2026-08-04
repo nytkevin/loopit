@@ -86,7 +86,7 @@ export default function RankedRow({
 
           <div
             ref={scrollRef}
-            className="flex gap-8 pb-4 snap-x snap-mandatory md:gap-10 scrollbar-hide"
+            className="flex gap-8 pb-4 md:gap-10 scrollbar-hide overflow-x-auto overflow-y-hidden"
           >
             {items.slice(0, 10).map((item, i) => (
               <RankedCard
