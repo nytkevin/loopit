@@ -1,8 +1,10 @@
 "use client";
+
 import { useQuery } from "@tanstack/react-query";
-import { Movies, options } from "../lib/helper";
+import { Movies } from "../lib/helper";
 import Image from "next/image";
 import { useParams } from "next/navigation";
+import { getCast } from "../lib/cast/getCast";
 
 type CastProps = {
   type: "movie" | "tv";
@@ -13,12 +15,10 @@ export default function Cast({ type }: CastProps) {
   const id = params.id as string;
 
   const { data: castData } = useQuery({
-    queryKey: ["cast", id],
-    queryFn: () =>
-      fetch(`https://api.themoviedb.org/3/${type}/${id}/credits`, options).then(
-        (res) => res.json(),
-      ),
+    queryKey: ["cast", type, id],
+    queryFn: () => getCast(type, id),
   });
+
   return (
     <div className="min-w-0 w-full">
       {castData?.cast?.length > 0 && (
@@ -26,27 +26,37 @@ export default function Cast({ type }: CastProps) {
           <h2 className="text-xs font-semibold uppercase tracking-[0.2em] text-zinc-400 mb-5">
             Cast
           </h2>
-          <div className="flex gap-5 overflow-x-auto pb-3 w-full min-w-0">
+
+          <div className=" flex gap-5 overflow-x-auto pb-4 w-full min-w-0 scrollbar-thin scrollbar-thumb-zinc-700 scrollbar-track-transparent hover:scrollbar-thumb-zinc-500 ">
             {castData.cast.map((member: Movies) => (
               <div
                 key={member.id}
-                className="flex flex-col items-center gap-2 min-w-18 shrink-0 group cursor-default"
+                className=" group relative shrink-0 w-36 md:w-44 rounded-xl overflow-hidden bg-zinc-900 border border-white/10 hover:border-red-500/50 transition-all duration-300 hover:-translate-y-2 hover:shadow-xl hover:shadow-red-900/20 "
               >
-                <div className="relative w-17 h-17 rounded-full overflow-hidden ring-1 ring-white/10 group-hover:ring-white/30 transition-all duration-300">
+                <div className="relative h-52 md:h-60 overflow-hidden">
                   <Image
                     src={
                       member.profile_path
-                        ? `https://image.tmdb.org/t/p/w200${member.profile_path}`
+                        ? `https://image.tmdb.org/t/p/w500${member.profile_path}`
                         : "/fallback.jpg"
                     }
-                    alt="poster path"
+                    alt={member.name || ""}
                     fill
-                    className="object-cover grayscale-20 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-300"
+                    className="object-cover transition-transform duration-500 group-hover:scale-110"
                   />
+
+                  <div className="absolute inset-0 bg-linear-to-t from-black via-transparent to-transparent" />
                 </div>
-                <p className="text-center text-xs text-zinc-400 group-hover:text-white transition-colors duration-200 leading-tight w-18">
-                  {member.name}
-                </p>
+
+                <div className="p-3">
+                  <p className=" text-sm font-semibold text-white truncate ">
+                    {member.name}
+                  </p>
+
+                  <p className="text-xs text-zinc-400  truncate mt-1">
+                    {member.character}
+                  </p>
+                </div>
               </div>
             ))}
           </div>

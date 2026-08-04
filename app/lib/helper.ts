@@ -30,6 +30,7 @@ type Movies = {
   media_type?: string;
   vote_average?: number;
   first_air_date?: string;
+  character: string;
 };
 
 type Video = {
